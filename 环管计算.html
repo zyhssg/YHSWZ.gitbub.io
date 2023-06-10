@@ -1,58 +1,115 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>计算序列号</title>
-  <script>
-    function calculate() {
-      // 获取输入框的值
-      let jm_text = document.getElementById('jm_text').value;
-      
-      // 将 jm_text 进行 UTF-8 编码
-      let jmh_text = new TextEncoder().encode(jm_text);
-      
-      try {
-        // 对 Base64 编码后的设备码进行解码
-        let jmw_text = atob(String.fromCharCode.apply(null, jmh_text));
-
-        // 输出解码后的设备码
-        console.log('设备码解码后为：' + jmw_text);
-        
-        // 计算序列号
-        let xlh = parseInt(jmw_text) / 5;
-        xlh += 353962952;
-        xlh = xlh / 83 / 9 / 5542 / 83;
-        xlh = parseInt((xlh - 838) / 3);
-        xlh = String(xlh);
-        let xlhjc = parseInt(xlh.charAt(0) + xlh.charAt(2) + xlh.charAt(5));
-        
-        // 检查序列号是否正确
-        if (xlhjc % 7 !== 0) {
-          // 如果序列号检查错误，则将序列号设为错误信息
-          xlh = '设备码错误';
-        } else if (parseInt(xlh) % 4) {
-          // 如果序列号检查错误，则将序列号设为错误信息
-          xlh = '设备码错误';
-        } else {
-          // 如果序列号检查正确，则将序列号设为正确信息
-          xlh = '序列号为：' + xlh;
-        }
-        
-        // 显示序列号
-        document.getElementById('result').innerText = xlh;
-        
-      } catch (e) {
-        // 如果解码出现错误，则将序列号设为错误信息
-        document.getElementById('result').innerText = '设备码错误';
+  <head>
+    <meta charset="utf-8">
+    <title>计算序列号</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
       }
-    }
-  </script>
-</head>
-<body>
-  <h1>计算序列号（内测6版本）</h1>
-  <label for="jm_text">请输入设备码：</label>
-  <input type="text" id="jm_text" name="jm_text"><br><br>
-  <button onclick="calculate()">计算序列号</button><br><br>
-  <div id="result"></div>
-</body>
+
+      h1 {
+        text-align: center;
+      }
+
+      form {
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      button:hover {
+        background-color: #3e8e41;
+      }
+
+      #result {
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        margin-top: 20px;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>计算序列号（内测6版本）</h1>
+    <form>
+      <label for="jm_text">请输入设备码：</label>
+      <input type="text" id="jm_text" name="jm_text"><br><br>
+      <button onclick="calculate()">计算序列号</button><br><br>
+      <div id="result"></div>
+    </form>
+    <script>
+      function calculate() {
+        // 获取输入框的值
+        let jm_text = document.getElementById('jm_text').value;
+
+        // 将 jm_text 进行 UTF-8 编码
+        let jmh_text = new TextEncoder().encode(jm_text);
+
+        try {
+          // 对 Base64 编码后的设备码进行解码
+          let jmw_text = atob(String.fromCharCode.apply(null, jmh_text));
+
+          // 输出解码后的设备码
+          console.log('设备码解码后为：' + jmw_text);
+
+          // 计算序列号
+          let xlh = parseInt(jmw_text) / 5;
+          xlh += 353962952;
+          xlh = xlh / 83 / 9 / 5542 / 83;
+          xlh = parseInt((xlh - 838) / 3);
+          xlh = String(xlh);
+          let xlhjc = parseInt(xlh.charAt(0) + xlh.charAt(2) + xlh.charAt(5));
+
+          // 检查序列号是否正确
+          if (xlhjc % 7 !== 0) {
+            // 如果序列号检查错误，则将序列号设为错误信息
+            xlh = '设备码错误';
+          } else if (parseInt(xlh) % 4) {
+            // 如果序列号检查错误，则将序列号设为错误信息
+            xlh = '设备码错误';
+          } else {
+            // 如果序列号检查正确，则将序列号设为正确信息
+            xlh = '序列号为：' + xlh;
+          }
+
+          // 显示序列号
+          document.getElementById('result').innerText = xlh;
+
+        } catch (e) {
+          // 如果解码出现错误，则将序列号设为错误信息
+          document.getElementById('result').innerText = '设备码错误';
+        }
+      }
+    </script>
+  </body>
 </html>
