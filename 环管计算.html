@@ -61,7 +61,7 @@
   </head>
   <body>
     <h1>计算序列号（内测6版本）</h1>
-    <form>
+    <form onsubmit="return false;">
       <label for="jm_text">请输入设备码：</label>
       <input type="text" id="jm_text" name="jm_text"><br><br>
       <button onclick="calculate()">计算序列号</button><br><br>
@@ -91,19 +91,16 @@
           let xlhjc = parseInt(xlh.charAt(0) + xlh.charAt(2) + xlh.charAt(5));
 
           // 检查序列号是否正确
-          if (xlhjc % 7 !== 0) {
+          if (xlhjc % 7 !== 0 || parseInt(xlh) % 4) {
             // 如果序列号检查错误，则将序列号设为错误信息
-            xlh = '设备码错误';
-          } else if (parseInt(xlh) % 4) {
-            // 如果序列号检查错误，则将序列号设为错误信息
-            xlh = '设备码错误';
+            result = '设备码错误';
           } else {
             // 如果序列号检查正确，则将序列号设为正确信息
-            xlh = '序列号为：' + xlh;
+            result = '序列号为：' + xlh;
           }
 
           // 显示序列号
-          document.getElementById('result').innerText = xlh;
+          document.getElementById('result').innerText = result;
 
         } catch (e) {
           // 如果解码出现错误，则将序列号设为错误信息
